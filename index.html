@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Анкета добровольца</title>
+  <link rel="preload" as="image" href="images/soldier1.webp" type="image/webp" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="landing">
+    <section class="hero">
+      <div class="hero__media">
+        <div class="hero__slider" id="heroSlider" aria-hidden="true"></div>
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+          <span class="hero__badge">Служба по контракту</span>
+          <h1 class="hero__title">Вернёмся домой <span>победителями</span></h1>
+          <p class="hero__desc">Оставьте заявку. Данные будут отправлены напрямую в Google Sheets, а по подходящей позиции с вами свяжутся после обработки анкеты.</p>
+          <ul class="hero__list">
+            <li>Прозрачная анкета без лишних шагов</li>
+            <li>Автоматическая отправка и фиксация заявки</li>
+            <li>Разные направления и понятные условия</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hero__form-wrap">
+        <div class="card">
+          <h2 class="card__title">Оставить заявку</h2>
+
+          <form id="applicationForm" novalidate>
+            <input type="hidden" id="direction" name="direction" />
+
+            <div class="form-grid">
+              <div class="form-group form-group--full">
+                <label for="fullName">ФИО <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" placeholder="Иванов Иван Иванович" required />
+                <small class="error-text" data-error-for="fullName"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="age">Возраст <span class="required">*</span></label>
+                <input type="number" id="age" name="age" min="18" max="63" placeholder="30" required />
+                <small class="error-text" data-error-for="age"></small>
+              </div>
+
+              <div class="form-group form-group--full autocomplete" id="cityAutocomplete">
+                <label for="city">Город <span class="required">*</span></label>
+                <input type="text" id="city" name="city" placeholder="Введите любой город" autocomplete="off" aria-autocomplete="list" aria-expanded="false" aria-controls="citySuggestions" required />
+                <div id="citySuggestions" class="autocomplete__dropdown hidden" role="listbox"></div>
+                <small class="error-text" data-error-for="city"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Телефон <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="8 (___) ___-__-__" inputmode="numeric" required />
+                <small class="error-text" data-error-for="phone"></small>
+              </div>
+
+              <div class="form-group form-group--full">
+                <label for="position">Должность <span class="required">*</span></label>
+                <select id="position" name="position" required></select>
+                <small class="error-text" data-error-for="position"></small>
+              </div>
+
+              <div class="form-group form-group--full">
+                <div id="jobInfo" class="job-info hidden"></div>
+              </div>
+
+              <div class="form-group form-group--full">
+                <label for="rank">Звание <span class="required">*</span></label>
+                <input type="text" id="rank" name="rank" placeholder="Укажите звание" required />
+                <small class="error-text" data-error-for="rank"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="criminalRecord">Судимость <span class="required">*</span></label>
+                <select id="criminalRecord" name="criminalRecord" required>
+                  <option value="">Выберите</option>
+                  <option value="Да">Да</option>
+                  <option value="Нет">Нет</option>
+                </select>
+                <small class="error-text" data-error-for="criminalRecord"></small>
+              </div>
+
+              <div class="form-group form-group--full hidden" id="criminalArticlesGroup">
+                <label for="criminalArticles">Статьи <span class="required">*</span></label>
+                <input type="text" id="criminalArticles" name="criminalArticles" placeholder="Укажите статьи" />
+                <small class="error-text" data-error-for="criminalArticles"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="chronicDiseases">Хронические заболевания <span class="required">*</span></label>
+                <select id="chronicDiseases" name="chronicDiseases" required>
+                  <option value="">Выберите</option>
+                  <option value="Да">Да</option>
+                  <option value="Нет">Нет</option>
+                </select>
+                <small class="error-text" data-error-for="chronicDiseases"></small>
+              </div>
+
+              <div class="form-group form-group--full hidden" id="diseasesDescriptionGroup">
+                <label for="diseasesDescription">Описание заболеваний <span class="required">*</span></label>
+                <textarea id="diseasesDescription" name="diseasesDescription" rows="3" placeholder="Опишите хронические заболевания"></textarea>
+                <small class="error-text" data-error-for="diseasesDescription"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="dismissed">Комиссован <span class="required">*</span></label>
+                <select id="dismissed" name="dismissed" required>
+                  <option value="">Выберите</option>
+                  <option value="Да">Да</option>
+                  <option value="Нет">Нет</option>
+                </select>
+                <small class="error-text" data-error-for="dismissed"></small>
+              </div>
+
+              <div class="form-group form-group--full hidden" id="dismissReasonGroup">
+                <label for="dismissReason">Причина комиссования / ранения <span class="required">*</span></label>
+                <textarea id="dismissReason" name="dismissReason" rows="3" placeholder="Укажите причину комиссования или ранения"></textarea>
+                <small class="error-text" data-error-for="dismissReason"></small>
+              </div>
+
+              <div class="form-group form-group--full">
+                <label class="checkbox">
+                  <input type="checkbox" id="consent" name="consent" />
+                  <span>Я даю согласие на обработку персональных данных <span class="required">*</span></span>
+                </label>
+                <small class="error-text" data-error-for="consent"></small>
+              </div>
+
+              <div class="form-group form-group--full">
+                <button type="submit" class="submit-btn" id="submitBtn">Отправить заявку</button>
+              </div>
+            </div>
+
+            <div id="formMessage" class="form-message" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="errorModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__dialog">
+      <div class="modal__content" role="dialog" aria-modal="true" aria-labelledby="errorModalTitle">
+        <h3 class="modal__title" id="errorModalTitle">Ошибка</h3>
+        <p class="modal__text" id="errorModalText">Превышен максимальный возраст для выбранной должности</p>
+        <button type="button" class="modal__button" id="errorModalClose">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="cities.js"></script>
+  <script src="positions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
